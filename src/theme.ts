@@ -9,6 +9,7 @@ const config = defineConfig({
         accent: "#41245F",
         highlight: "#E9F5F7",
         border: "#CDD6E9",
+        icon: "#292D32",
       },
     },
   },
