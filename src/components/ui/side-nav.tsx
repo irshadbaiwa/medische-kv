@@ -1,15 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import {
-  Box,
-  Accordion,
-  Flex,
-  Text,
-  Portal,
-  Select,
-  createListCollection,
-} from "@chakra-ui/react";
+import { Box, Accordion, Flex, Text, NativeSelect } from "@chakra-ui/react";
 import {
   type Icon,
   Menu,
@@ -25,6 +15,7 @@ import {
   MessageEdit,
   Edit,
   LanguageCircle,
+  ArrowDown2,
 } from "iconsax-reactjs";
 import { Logo } from "./logo";
 
@@ -270,8 +261,7 @@ const LanguageToggler = () => {
       padding={3}
       marginTop={4}
     >
-      <Select.Root
-        collection={languages}
+      <NativeSelect.Root
         bg={"white"}
         size="sm"
         width="100%"
@@ -280,44 +270,39 @@ const LanguageToggler = () => {
         borderColor={"border"}
         overflow={"hidden"}
         defaultValue={["english"]}
+        position={"relative"}
       >
-        <Select.HiddenSelect />
-        <Select.Control
+        <NativeSelect.Field
           width={"100%"}
           display={"flex"}
           alignItems={"center"}
-          paddingX={2}
+          paddingX={8}
           gap={2}
           defaultValue={"english"}
+          border={"none"}
+          outline={"nonr"}
+        >
+          <option value="english">English</option>
+          <option value="dutch">Dutch</option>
+        </NativeSelect.Field>
+
+        <Box
+          position={"absolute"}
+          top={"50%"}
+          transform={"translateY(-50%)"}
+          left={2}
         >
           <LanguageCircle size={18} color={"#7988A9"} />
-          <Select.Trigger outline={"none"} border={"none"}>
-            <Select.ValueText />
-          </Select.Trigger>
-          <Select.IndicatorGroup paddingRight={2}>
-            <Select.Indicator />
-          </Select.IndicatorGroup>
-        </Select.Control>
-        <Portal>
-          <Select.Positioner>
-            <Select.Content paddingY={2} paddingX={2}>
-              {languages.items.map((language) => (
-                <Select.Item item={language} key={language.value}>
-                  {language.label}
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
-      </Select.Root>
+        </Box>
+        <Box
+          position={"absolute"}
+          top={"50%"}
+          transform={"translateY(-50%)"}
+          right={2}
+        >
+          <ArrowDown2 size={16} color={"#7988A9"} />
+        </Box>
+      </NativeSelect.Root>
     </Box>
   );
 };
-
-const languages = createListCollection({
-  items: [
-    { label: "English", value: "english" },
-    { label: "Dutch", value: "dutch" },
-  ],
-});
