@@ -13,6 +13,7 @@ export const AddTaskButton = () => {
       placement={"center"}
       open={open}
       onOpenChange={(e) => setOpen(e.open)}
+      size={{ base: "xs", lg: "md" }}
     >
       <Dialog.Trigger asChild>
         <Button
@@ -28,7 +29,7 @@ export const AddTaskButton = () => {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content padding={{ base: 4, lg: 6, "2xl": 8 }} maxW={"90%"}>
+          <Dialog.Content padding={{ base: 4, lg: 6, "2xl": 8 }}>
             <Dialog.Header>
               <Dialog.Title>Add Task</Dialog.Title>
             </Dialog.Header>
