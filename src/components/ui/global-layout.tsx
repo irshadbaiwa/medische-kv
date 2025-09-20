@@ -46,6 +46,7 @@ export const GlobalLayout = ({
           as={"section"}
           width={"100%"}
           padding={{ base: 4, lg: 6, "2xl": 8 }}
+          overflow={"hidden"}
         >
           {children}
         </Box>
