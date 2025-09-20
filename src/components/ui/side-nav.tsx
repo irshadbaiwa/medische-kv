@@ -1,5 +1,15 @@
-import { Box, Accordion, Flex, Text } from "@chakra-ui/react";
+"use client";
+
 import Link from "next/link";
+import {
+  Box,
+  Accordion,
+  Flex,
+  Text,
+  Portal,
+  Select,
+  createListCollection,
+} from "@chakra-ui/react";
 import {
   type Icon,
   Menu,
@@ -14,6 +24,7 @@ import {
   NotificationBing,
   MessageEdit,
   Edit,
+  LanguageCircle,
 } from "iconsax-reactjs";
 import { Logo } from "./logo";
 
@@ -111,7 +122,7 @@ export const SideNav = () => {
       </Flex>
 
       {/** Lang/theme */}
-      <Box></Box>
+      <LanguageToggler />
     </Flex>
   );
 };
@@ -245,3 +256,68 @@ const NavGroup = ({
     </Accordion.Root>
   );
 };
+
+const LanguageToggler = () => {
+  "use client";
+
+  return (
+    <Box
+      width="100%"
+      borderRadius="10px"
+      bg={"secondary"}
+      borderWidth={1}
+      borderColor={"border"}
+      padding={3}
+      marginTop={4}
+    >
+      <Select.Root
+        collection={languages}
+        bg={"white"}
+        size="sm"
+        width="100%"
+        borderRadius={"10px"}
+        borderWidth={1}
+        borderColor={"border"}
+        overflow={"hidden"}
+        defaultValue={["english"]}
+      >
+        <Select.HiddenSelect />
+        <Select.Control
+          width={"100%"}
+          display={"flex"}
+          alignItems={"center"}
+          paddingX={2}
+          gap={2}
+          defaultValue={"english"}
+        >
+          <LanguageCircle size={18} color={"#7988A9"} />
+          <Select.Trigger outline={"none"} border={"none"}>
+            <Select.ValueText />
+          </Select.Trigger>
+          <Select.IndicatorGroup paddingRight={2}>
+            <Select.Indicator />
+          </Select.IndicatorGroup>
+        </Select.Control>
+        <Portal>
+          <Select.Positioner>
+            <Select.Content paddingY={2} paddingX={2}>
+              {languages.items.map((language) => (
+                <Select.Item item={language} key={language.value}>
+                  {language.label}
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Positioner>
+        </Portal>
+      </Select.Root>
+    </Box>
+  );
+};
+
+const languages = createListCollection({
+  items: [
+    { label: "English", value: "english" },
+    { label: "Dutch", value: "dutch" },
+  ],
+});
