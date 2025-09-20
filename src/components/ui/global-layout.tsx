@@ -1,4 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { SideNav } from "./side-nav";
 
 export const GlobalLayout = ({
   children,
@@ -6,18 +7,23 @@ export const GlobalLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <Flex height={"100dvh"} direction={{ base: "column", lg: "row" }}>
+    <Flex
+      height={"100dvh"}
+      direction={{ base: "column", lg: "row" }}
+      overflow={"hidden"}
+    >
       {/** Side Nav */}
       <Box
         as={"aside"}
         width={"250px"}
+        height={"100%"}
         hideBelow={"lg"}
         background={"white"}
         borderRightWidth={1}
         borderRightColor={"border"}
         padding={{ lg: 6, "2xl": 8 }}
       >
-        Aside
+        <SideNav />
       </Box>
       {/** Page */}
       <Box as={"main"} flex={1}>
