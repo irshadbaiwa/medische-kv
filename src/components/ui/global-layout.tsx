@@ -27,7 +27,7 @@ export const GlobalLayout = ({
         <SideNav />
       </Box>
       {/** Page */}
-      <Box as={"main"} flex={1}>
+      <Box as={"main"} flex={1} overflow={"auto"}>
         {/** Header */}
         <Box
           as={"header"}
@@ -46,7 +46,6 @@ export const GlobalLayout = ({
           as={"section"}
           width={"100%"}
           padding={{ base: 4, lg: 6, "2xl": 8 }}
-          overflow={"hidden"}
         >
           {children}
         </Box>

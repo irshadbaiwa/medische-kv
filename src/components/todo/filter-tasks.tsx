@@ -1,33 +1,35 @@
 "use client";
 
+import { MouseEventHandler } from "react";
 import { Box, HStack, Span } from "@chakra-ui/react";
 import { TaskSquare, Status, TickCircle } from "iconsax-reactjs";
-import { useTodoContext, FilterOption } from "./todo-provider";
-import { MouseEventHandler } from "react";
+import { useTodoContext } from "./todo-provider";
+import { TaskStatus, ViewType } from "./@types";
 
 export const FilterTasksByProgress = () => {
   const todoCount = 20;
   const inProgressCount = 23;
   const completeCount = 18;
 
-  const { filterOption, setFilterOption } = useTodoContext();
-  const clearFilter = () => setFilterOption(FilterOption.ALL);
+  const { filterOption, setFilterOption, viewType } = useTodoContext();
+  const clearFilter = () => setFilterOption("all");
   const toggleTodo = () => {
-    filterOption === FilterOption.TODO
+    filterOption === TaskStatus.TODO
       ? clearFilter()
-      : setFilterOption(FilterOption.TODO);
+      : setFilterOption(TaskStatus.TODO);
   };
   const toggleOngoing = () => {
-    filterOption === FilterOption.ONGOING
+    filterOption === TaskStatus.ONGOING
       ? clearFilter()
-      : setFilterOption(FilterOption.ONGOING);
+      : setFilterOption(TaskStatus.ONGOING);
   };
   const toggleCompleted = () => {
-    filterOption === FilterOption.COMPLETED
+    filterOption === TaskStatus.COMPLETED
       ? clearFilter()
-      : setFilterOption(FilterOption.COMPLETED);
+      : setFilterOption(TaskStatus.COMPLETED);
   };
 
+  if (viewType === ViewType.KANBAN) return null;
   return (
     <HStack
       width={"100%"}
@@ -41,19 +43,19 @@ export const FilterTasksByProgress = () => {
       {/** Todo */}
       <TodoFilterToggle
         todoCount={todoCount}
-        isActive={filterOption === FilterOption.TODO}
+        isActive={filterOption === TaskStatus.TODO}
         onClick={toggleTodo}
       />
       {/** In-Progress */}
       <InProgressFilterToggle
         inProgressCount={inProgressCount}
-        isActive={filterOption === FilterOption.ONGOING}
+        isActive={filterOption === TaskStatus.ONGOING}
         onClick={toggleOngoing}
       />
       {/** Completed */}
       <CompleteFilterToggle
         completeCount={completeCount}
-        isActive={filterOption === FilterOption.COMPLETED}
+        isActive={filterOption === TaskStatus.COMPLETED}
         onClick={toggleCompleted}
       />
     </HStack>

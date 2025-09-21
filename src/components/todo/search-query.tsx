@@ -2,7 +2,8 @@
 
 import { HStack, Box, Input, InputGroup, IconButton } from "@chakra-ui/react";
 import { RowHorizontal, RowVertical, SearchNormal1 } from "iconsax-reactjs";
-import { useTodoContext, ViewType } from "./todo-provider";
+import { useTodoContext } from "./todo-provider";
+import { ViewType } from "./@types";
 
 export const SearchQueryAndViewType = () => {
   const { searchQuery, setSearchQuery, viewType, setViewType } =

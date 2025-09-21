@@ -1,23 +1,13 @@
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
-
-export enum ViewType {
-  TABLE = "table",
-  KANBAN = "kanban",
-}
-export enum FilterOption {
-  ALL = "all",
-  TODO = "todo",
-  ONGOING = "ongoing",
-  COMPLETED = "completed",
-}
+import { TaskStatus, ViewType } from "./@types";
 
 interface TodoContextType {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
-  filterOption: FilterOption;
-  setFilterOption: (option: FilterOption) => void;
+  filterOption: TaskStatus | "all";
+  setFilterOption: (option: TaskStatus | "all") => void;
   viewType: ViewType;
   setViewType: (type: ViewType) => void;
 }
@@ -28,9 +18,7 @@ export const TodoProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filterOption, setFilterOption] = useState<FilterOption>(
-    FilterOption.ALL
-  );
+  const [filterOption, setFilterOption] = useState<TaskStatus | "all">("all");
   const [viewType, setViewType] = useState<ViewType>(ViewType.TABLE);
 
   return (
