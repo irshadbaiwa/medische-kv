@@ -3,11 +3,29 @@ import { Task, TaskStatus } from "../todo/@types";
 import { TodoCards, TodoCardsHeading } from "./todo-cards";
 import { InProgressCards, InProgressCardsHeading } from "./inprogress-cards";
 import { CompletedCards, CompletedCardsHeading } from "./completed-cards";
+import { useTodoContext } from "../todo/todo-provider";
 
 export const TodoKanbanBoard = ({ tasks }: { tasks: Task[] }) => {
-  const todos = tasks.filter((t) => t.status === TaskStatus.TODO);
-  const inprogress = tasks.filter((t) => t.status === TaskStatus.ONGOING);
-  const completed = tasks.filter((t) => t.status === TaskStatus.COMPLETED);
+  const { searchQuery } = useTodoContext();
+
+  const todos = tasks.filter((t) => {
+    const matchesSearch = t.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return t.status === TaskStatus.TODO && matchesSearch;
+  });
+  const inprogress = tasks.filter((t) => {
+    const matchesSearch = t.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return t.status === TaskStatus.ONGOING && matchesSearch;
+  });
+  const completed = tasks.filter((t) => {
+    const matchesSearch = t.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return t.status === TaskStatus.COMPLETED && matchesSearch;
+  });
 
   return (
     <Box padding={1} width="100%" overflow="hidden">
