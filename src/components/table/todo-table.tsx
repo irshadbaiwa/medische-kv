@@ -80,6 +80,9 @@ const TodosTable = ({ tasks }: { tasks: Task[] }) => {
                 </Avatar.Fallback>
               </Avatar.Root>
             )}
+            {!row.original.assignees.length && (
+              <Text fontSize="xs">Unassigned</Text>
+            )}
           </AvatarGroup>
         ),
       },
