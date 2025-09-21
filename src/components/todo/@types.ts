@@ -17,6 +17,7 @@ export interface Assignee {
 }
 
 export interface Task {
+  id: string;
   name: string;
   status: TaskStatus;
   date: string;

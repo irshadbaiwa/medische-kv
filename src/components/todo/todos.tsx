@@ -1,12 +1,11 @@
 "use client";
 
 import TodosTable from "../table/todo-table";
-import { tasks } from "@/data/tasks";
 import { ViewType } from "./@types";
 import { useTodoContext } from "./todo-provider";
 
 export const Todos = () => {
-  const { viewType } = useTodoContext();
+  const { viewType, todos } = useTodoContext();
 
-  return viewType === ViewType.TABLE ? <TodosTable tasks={tasks} /> : "Kanban";
+  return viewType === ViewType.TABLE ? <TodosTable tasks={todos} /> : "Kanban";
 };

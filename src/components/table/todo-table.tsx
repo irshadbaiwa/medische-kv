@@ -7,13 +7,14 @@ import {
   Table,
   Avatar,
   AvatarGroup,
-  Menu,
-  Portal,
   IconButton,
   Flex,
   Text,
+  Span,
   NativeSelect,
   VStack,
+  Skeleton,
+  SkeletonCircle,
 } from "@chakra-ui/react";
 import {
   useReactTable,
@@ -25,20 +26,20 @@ import {
 import {
   ArrowDown2,
   Flag,
-  TaskSquare,
-  Status,
-  TickCircle,
-  Trash,
   ArrowLeft2,
   ArrowRight2,
   Clipboard,
 } from "iconsax-reactjs";
-import { Task, TaskPriority, TaskStatus } from "../todo/@types";
+import { Task, TaskPriority } from "../todo/@types";
 import { useTodoContext } from "../todo/todo-provider";
+import { ActionMenu } from "./action-menu";
 
 const TodosTable = ({ tasks }: { tasks: Task[] }) => {
-  const { filterOption: statusFilter, searchQuery: globalFilter } =
-    useTodoContext();
+  const {
+    isLoading,
+    filterOption: statusFilter,
+    searchQuery: globalFilter,
+  } = useTodoContext();
 
   const filteredTasks = useMemo(() => {
     return tasks.filter((task: Task) => {
@@ -109,106 +110,7 @@ const TodosTable = ({ tasks }: { tasks: Task[] }) => {
         header: "",
         id: "actions",
         cell: ({ row }) => {
-          const taskStatus = row.original.status;
-          const status: Record<TaskStatus, string> = {
-            [TaskStatus.COMPLETED]: "Completed",
-            [TaskStatus.ONGOING]: "In Progress",
-            [TaskStatus.TODO]: "To Do",
-          };
-
-          return (
-            <Menu.Root>
-              <Menu.Trigger asChild>
-                <IconButton
-                  size="xs"
-                  bg="secondary"
-                  color="icon"
-                  borderRadius={999}
-                >
-                  <ArrowDown2 size={16} />
-                </IconButton>
-              </Menu.Trigger>
-              <Portal>
-                <Menu.Positioner>
-                  <Menu.Content padding={1} gapY={2}>
-                    <Box
-                      paddingX={1}
-                      paddingY={2}
-                      borderRadius={6}
-                      paddingLeft={4}
-                    >
-                      <Text fontWeight={"semibold"} fontSize={"sm"}>
-                        {status[taskStatus]}
-                      </Text>
-                    </Box>
-                    <Menu.Separator />
-                    {taskStatus !== TaskStatus.COMPLETED && (
-                      <Menu.Item
-                        value="complete-task"
-                        paddingX={1}
-                        paddingY={2}
-                        borderRadius={6}
-                        fontSize={"xs"}
-                      >
-                        <Box>
-                          <TickCircle
-                            variant="Bold"
-                            size={16}
-                            color={"#75C5C1"}
-                          />
-                        </Box>
-                        Mark Completed
-                      </Menu.Item>
-                    )}
-                    {taskStatus !== TaskStatus.ONGOING && (
-                      <Menu.Item
-                        value="ongoing-task"
-                        paddingX={1}
-                        paddingY={2}
-                        borderRadius={6}
-                        fontSize={"xs"}
-                      >
-                        <Box>
-                          <Status variant="Bold" size={16} color={"#F6BE38"} />
-                        </Box>
-                        Set In Progress
-                      </Menu.Item>
-                    )}
-                    {taskStatus !== TaskStatus.TODO && (
-                      <Menu.Item
-                        value="todo-task"
-                        paddingX={1}
-                        paddingY={2}
-                        borderRadius={6}
-                        fontSize={"xs"}
-                      >
-                        <Box>
-                          <TaskSquare
-                            variant="Bold"
-                            size={16}
-                            color={"#CFB7E8"}
-                          />
-                        </Box>
-                        Set To-Do
-                      </Menu.Item>
-                    )}
-                    <Menu.Item
-                      value="delete-task"
-                      paddingX={1}
-                      paddingY={2}
-                      borderRadius={6}
-                      fontSize={"xs"}
-                    >
-                      <Box color={"red.600"}>
-                        <Trash size={16} />
-                      </Box>
-                      Delete Task
-                    </Menu.Item>
-                  </Menu.Content>
-                </Menu.Positioner>
-              </Portal>
-            </Menu.Root>
-          );
+          return <ActionMenu task={row.original} />;
         },
       },
     ],
@@ -257,7 +159,30 @@ const TodosTable = ({ tasks }: { tasks: Task[] }) => {
           ))}
         </Table.Header>
         <Table.Body>
-          {table.getRowModel().rows.length > 0 ? (
+          {isLoading ? (
+            [1, 2, 3].map((j) => (
+              <Table.Row key={j}>
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Table.Cell
+                    key={i}
+                    paddingX={{ base: 3, lg: 5 }}
+                    paddingY={{ base: 1, lg: 2 }}
+                  >
+                    {i === 3 ? (
+                      <SkeletonCircle size="10" />
+                    ) : i === 5 ? (
+                      <SkeletonCircle size="7" />
+                    ) : (
+                      <Skeleton
+                        height="5"
+                        width={{ base: 20, md: 32, lg: 48 }}
+                      />
+                    )}
+                  </Table.Cell>
+                ))}
+              </Table.Row>
+            ))
+          ) : table.getRowModel().rows.length > 0 ? (
             table.getRowModel().rows.map((row) => (
               <Table.Row key={row.id}>
                 {row.getVisibleCells().map((cell) => (
@@ -318,13 +243,19 @@ const TodosTable = ({ tasks }: { tasks: Task[] }) => {
           >
             <ArrowLeft2 size={16} />
           </IconButton>
-          <Text fontSize={"xs"}>
-            Page{" "}
-            {!!table.getPageCount()
-              ? table.getState().pagination.pageIndex + 1
-              : 0}{" "}
-            of {table.getPageCount()}
-          </Text>
+          <IconButton
+            borderRadius={999}
+            borderColor="primary"
+            color="white"
+            bg="primary"
+            size="xs"
+          >
+            <Span fontSize={"xs"}>
+              {!!table.getPageCount()
+                ? table.getState().pagination.pageIndex + 1
+                : 0}
+            </Span>
+          </IconButton>
           <IconButton
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}

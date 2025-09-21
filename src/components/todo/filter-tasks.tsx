@@ -7,26 +7,37 @@ import { useTodoContext } from "./todo-provider";
 import { TaskStatus, ViewType } from "./@types";
 
 export const FilterTasksByProgress = () => {
-  const todoCount = 20;
-  const inProgressCount = 23;
-  const completeCount = 18;
+  const { filterOption, setFilterOption, viewType, todos } = useTodoContext();
 
-  const { filterOption, setFilterOption, viewType } = useTodoContext();
+  const todoCount = todos.filter((t) => t.status === TaskStatus.TODO).length;
+  const inProgressCount = todos.filter(
+    (t) => t.status === TaskStatus.ONGOING
+  ).length;
+  const completeCount = todos.filter(
+    (t) => t.status === TaskStatus.COMPLETED
+  ).length;
+
   const clearFilter = () => setFilterOption("all");
   const toggleTodo = () => {
-    filterOption === TaskStatus.TODO
-      ? clearFilter()
-      : setFilterOption(TaskStatus.TODO);
+    if (filterOption === TaskStatus.TODO) {
+      clearFilter();
+    } else {
+      setFilterOption(TaskStatus.TODO);
+    }
   };
   const toggleOngoing = () => {
-    filterOption === TaskStatus.ONGOING
-      ? clearFilter()
-      : setFilterOption(TaskStatus.ONGOING);
+    if (filterOption === TaskStatus.ONGOING) {
+      clearFilter();
+    } else {
+      setFilterOption(TaskStatus.ONGOING);
+    }
   };
   const toggleCompleted = () => {
-    filterOption === TaskStatus.COMPLETED
-      ? clearFilter()
-      : setFilterOption(TaskStatus.COMPLETED);
+    if (filterOption === TaskStatus.COMPLETED) {
+      clearFilter();
+    } else {
+      setFilterOption(TaskStatus.COMPLETED);
+    }
   };
 
   if (viewType === ViewType.KANBAN) return null;
