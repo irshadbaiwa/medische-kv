@@ -216,7 +216,7 @@ const TodosTable: React.FC = () => {
 
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 5,
+    pageSize: 10,
   });
 
   const table = useReactTable({
