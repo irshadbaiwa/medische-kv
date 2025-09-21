@@ -32,11 +32,17 @@ import { team } from "@/data/team";
 export const AddTaskButton = () => {
   const [open, setOpen] = useState(false);
 
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  const formattedDate = `${year}-${month}-${day}`;
+
   const { addTodo } = useTodoContext();
   const [form, setForm] = useState({
     name: "",
     status: TaskStatus.TODO,
-    date: "",
+    date: formattedDate,
     priority: TaskPriority.NORMAL,
     description: "",
     assignees: [] as Assignee[],
@@ -59,7 +65,7 @@ export const AddTaskButton = () => {
     setForm({
       name: "",
       status: TaskStatus.TODO,
-      date: "",
+      date: formattedDate,
       priority: TaskPriority.NORMAL,
       description: "",
       assignees: [],
@@ -150,6 +156,7 @@ export const AddTaskButton = () => {
                       onChange={(e) =>
                         setForm({ ...form, date: e.target.value })
                       }
+                      placeholder="Select date"
                       color="gray.800"
                       borderWidth={1}
                       borderColor={"border"}
