@@ -1,6 +1,6 @@
 import { Heading, HStack, IconButton, Button, Switch } from "@chakra-ui/react";
 import { ArrowCircleLeft2, Export, Filter, Calendar } from "iconsax-reactjs";
-import { AddTaskButton } from "@/components/ui/add-task-btn";
+import { AddTaskButton } from "@/components/todo/add-task-btn";
 
 export const PageHeading = ({ title }: { title: string }) => {
   return (
