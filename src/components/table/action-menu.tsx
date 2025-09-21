@@ -1,13 +1,7 @@
 "use client";
 
-import { Box, IconButton, Menu, Portal, Text } from "@chakra-ui/react";
-import {
-  ArrowDown2,
-  Status,
-  TaskSquare,
-  TickCircle,
-  Trash,
-} from "iconsax-reactjs";
+import { Box, Button, Menu, Portal, Span, Stack, Text } from "@chakra-ui/react";
+import { Status, TaskSquare, TickCircle, Trash } from "iconsax-reactjs";
 import { useTodoContext } from "../todo/todo-provider";
 import { Task, TaskStatus } from "../todo/@types";
 
@@ -24,9 +18,28 @@ export const ActionMenu = ({ task }: { task: Task }) => {
   return (
     <Menu.Root>
       <Menu.Trigger asChild>
-        <IconButton size="xs" bg="secondary" color="icon" borderRadius={999}>
-          <ArrowDown2 size={16} />
-        </IconButton>
+        <Button size="xs" bg="secondary">
+          <Stack direction={"row"} gap={"3px"} align="center">
+            <Span
+              width={"3.5px"}
+              height={"3.5px"}
+              borderRadius={99}
+              bg="#6C7278"
+            />
+            <Span
+              width={"3.5px"}
+              height={"3.5px"}
+              borderRadius={99}
+              bg="#6C7278"
+            />
+            <Span
+              width={"3.5px"}
+              height={"3.5px"}
+              borderRadius={99}
+              bg="#6C7278"
+            />
+          </Stack>
+        </Button>
       </Menu.Trigger>
       <Portal>
         <Menu.Positioner>
