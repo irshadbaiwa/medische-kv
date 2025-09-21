@@ -13,6 +13,7 @@ import {
   Flex,
   Text,
   NativeSelect,
+  VStack,
 } from "@chakra-ui/react";
 import {
   useReactTable,
@@ -30,12 +31,12 @@ import {
   Trash,
   ArrowLeft2,
   ArrowRight2,
+  Clipboard,
 } from "iconsax-reactjs";
 import { Task, TaskPriority, TaskStatus } from "../todo/@types";
-import { tasks } from "@/data/tasks";
 import { useTodoContext } from "../todo/todo-provider";
 
-const TodosTable: React.FC = () => {
+const TodosTable = ({ tasks }: { tasks: Task[] }) => {
   const { filterOption: statusFilter, searchQuery: globalFilter } =
     useTodoContext();
 
@@ -48,7 +49,7 @@ const TodosTable: React.FC = () => {
         statusFilter === "all" || task.status === statusFilter!;
       return matchesSearch && matchesStatus;
     });
-  }, [globalFilter, statusFilter]);
+  }, [globalFilter, statusFilter, tasks]);
 
   const columns = useMemo<ColumnDef<Task>[]>(
     () => [
@@ -256,20 +257,46 @@ const TodosTable: React.FC = () => {
           ))}
         </Table.Header>
         <Table.Body>
-          {table.getRowModel().rows.map((row) => (
-            <Table.Row key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <Table.Cell
-                  key={cell.id}
-                  paddingX={{ base: 3, lg: 5 }}
-                  paddingY={{ base: 1, lg: 2 }}
-                  fontSize={"xs"}
+          {table.getRowModel().rows.length > 0 ? (
+            table.getRowModel().rows.map((row) => (
+              <Table.Row key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <Table.Cell
+                    key={cell.id}
+                    paddingX={{ base: 3, lg: 5 }}
+                    paddingY={{ base: 1, lg: 2 }}
+                    fontSize={"xs"}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </Table.Cell>
+                ))}
+              </Table.Row>
+            ))
+          ) : (
+            <Table.Row>
+              <Table.Cell colSpan={table.getAllColumns().length}>
+                <VStack
+                  width={"100%"}
+                  paddingY={8}
+                  paddingX={4}
+                  align="center"
+                  gap={6}
+                  justify="center"
                 >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </Table.Cell>
-              ))}
+                  <Box color={"gray.200"}>
+                    <Clipboard size={64} variant="Bold" />
+                  </Box>
+                  <Text
+                    fontSize={{ base: "lg", md: "xl", lg: "2xl" }}
+                    fontWeight={"bold"}
+                    color={"gray.300"}
+                  >
+                    No Task
+                  </Text>
+                </VStack>
+              </Table.Cell>
             </Table.Row>
-          ))}
+          )}
         </Table.Body>
       </Table.Root>
 
@@ -292,8 +319,11 @@ const TodosTable: React.FC = () => {
             <ArrowLeft2 size={16} />
           </IconButton>
           <Text fontSize={"xs"}>
-            Page {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
+            Page{" "}
+            {!!table.getPageCount()
+              ? table.getState().pagination.pageIndex + 1
+              : 0}{" "}
+            of {table.getPageCount()}
           </Text>
           <IconButton
             onClick={() => table.nextPage()}
