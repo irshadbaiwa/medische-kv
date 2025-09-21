@@ -48,6 +48,7 @@ export const Header = () => {
               type="search"
               borderRadius={"10px"}
               bg="secondary"
+              css={{ "--focus-color": "#75C5C1" }}
             />
           </InputGroup>
         </Box>

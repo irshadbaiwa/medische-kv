@@ -20,7 +20,7 @@ export const AddTaskButton = () => {
           bg="primary"
           borderRadius="10px"
           paddingX={3}
-          size={{ base: "sm", lg: "md" }}
+          size={{ base: "xs", lg: "md" }}
         >
           <Add size={16} />
           Add Task

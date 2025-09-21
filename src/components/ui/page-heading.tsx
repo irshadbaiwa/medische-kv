@@ -16,7 +16,7 @@ export const PageHeading = ({ title }: { title: string }) => {
         <ArrowCircleLeft2 size={24} />
       </IconButton>
       <Heading
-        size={{ base: "xl", lg: "3xl" }}
+        size={{ base: "lg", md: "xl", lg: "3xl" }}
         flex={1}
         fontWeight={"semibold"}
       >
