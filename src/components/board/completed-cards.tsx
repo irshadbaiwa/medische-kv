@@ -5,8 +5,9 @@ import {
   IconButton,
   Span,
   VStack,
+  Text,
 } from "@chakra-ui/react";
-import { Add, TickCircle } from "iconsax-reactjs";
+import { Add, TickCircle, Clipboard } from "iconsax-reactjs";
 import { TaskCard } from "./task-card";
 import { Task, TaskStatus } from "../todo/@types";
 import { AddTaskButton } from "../todo/add-task-btn";
@@ -17,6 +18,28 @@ export const CompletedCards = ({ tasks }: { tasks: Task[] }) => {
       {tasks.map((task) => (
         <TaskCard key={task.id} task={task} />
       ))}
+
+      {!tasks.length && (
+        <VStack
+          width={"100%"}
+          paddingY={8}
+          paddingX={4}
+          align="center"
+          gap={6}
+          justify="center"
+        >
+          <Box color={"#75C5C1"} opacity={0.4}>
+            <Clipboard size={64} variant="Bold" />
+          </Box>
+          <Text
+            fontSize={{ base: "lg", md: "xl", lg: "2xl" }}
+            fontWeight={"bold"}
+            color={"#75C5C1"}
+          >
+            No Task
+          </Text>
+        </VStack>
+      )}
 
       <AddTaskButton status={TaskStatus.COMPLETED}>
         <Button
