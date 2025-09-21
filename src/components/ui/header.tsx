@@ -5,7 +5,6 @@ import {
   HStack,
   IconButton,
   Span,
-  Button,
   CloseButton,
   Drawer,
   Portal,

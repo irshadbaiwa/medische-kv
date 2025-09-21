@@ -103,11 +103,12 @@ export const SideNav = () => {
           ) : isGroup ? (
             <NavGroup
               key={item.name}
-              children={item.children!}
               name={item.name}
               Icon={item.Icon}
               isActive={item.isActive}
-            />
+            >
+              {item.children!}
+            </NavGroup>
           ) : null;
         })}
       </Flex>
@@ -231,15 +232,16 @@ const NavGroup = ({
                   Icon={item.Icon}
                   isActive={item.isActive}
                 />
-              ) : (
+              ) : isGroup ? (
                 <NavGroup
                   key={item.name}
-                  children={item.children!}
                   name={item.name}
                   Icon={item.Icon}
                   isActive={item.isActive}
-                />
-              );
+                >
+                  {item.children!}
+                </NavGroup>
+              ) : null;
             })}
           </Accordion.ItemBody>
         </Accordion.ItemContent>
