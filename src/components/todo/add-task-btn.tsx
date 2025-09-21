@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import {
   Box,
   Button,
@@ -29,7 +29,13 @@ import { Task, TaskPriority, TaskStatus, Assignee } from "./@types";
 import { useTodoContext } from "./todo-provider";
 import { team } from "@/data/team";
 
-export const AddTaskButton = () => {
+export const AddTaskButton = ({
+  children,
+  status,
+}: {
+  children?: ReactNode;
+  status?: TaskStatus;
+}) => {
   const [open, setOpen] = useState(false);
 
   const today = new Date();
@@ -41,7 +47,7 @@ export const AddTaskButton = () => {
   const { addTodo } = useTodoContext();
   const [form, setForm] = useState({
     name: "",
-    status: TaskStatus.TODO,
+    status: status ?? TaskStatus.TODO,
     date: formattedDate,
     priority: TaskPriority.NORMAL,
     description: "",
@@ -81,15 +87,17 @@ export const AddTaskButton = () => {
       size={{ base: "xs", lg: "md" }}
     >
       <Dialog.Trigger asChild>
-        <Button
-          bg="primary"
-          borderRadius="10px"
-          paddingX={3}
-          size={{ base: "xs", lg: "md" }}
-        >
-          <Add size={16} />
-          Add Task
-        </Button>
+        {children ?? (
+          <Button
+            bg="primary"
+            borderRadius="10px"
+            paddingX={3}
+            size={{ base: "xs", lg: "md" }}
+          >
+            <Add size={16} />
+            Add Task
+          </Button>
+        )}
       </Dialog.Trigger>
       <Portal>
         <Dialog.Backdrop />

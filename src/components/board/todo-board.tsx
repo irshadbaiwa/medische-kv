@@ -11,7 +11,13 @@ export const TodoKanbanBoard = ({ tasks }: { tasks: Task[] }) => {
 
   return (
     <Box padding={1} width="100%" overflow="hidden">
-      <Flex gap={4} flexWrap="nowrap" width="100%" overflowX="auto">
+      <Flex
+        gap={4}
+        flexWrap="nowrap"
+        align="flex-start"
+        width="100%"
+        overflowX="auto"
+      >
         {/** Todo */}
         <VStack
           flexShrink={0}

@@ -1,7 +1,15 @@
-import { Box, HStack, IconButton, Span, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  IconButton,
+  Span,
+  VStack,
+} from "@chakra-ui/react";
 import { Add, TaskSquare } from "iconsax-reactjs";
 import { TaskCard } from "./task-card";
-import { Task } from "../todo/@types";
+import { Task, TaskStatus } from "../todo/@types";
+import { AddTaskButton } from "../todo/add-task-btn";
 
 export const TodoCards = ({ tasks }: { tasks: Task[] }) => {
   return (
@@ -9,6 +17,20 @@ export const TodoCards = ({ tasks }: { tasks: Task[] }) => {
       {tasks.map((task) => (
         <TaskCard key={task.id} task={task} />
       ))}
+
+      <AddTaskButton status={TaskStatus.TODO}>
+        <Button
+          size="xs"
+          width="100%"
+          bg="white"
+          color="gray.800"
+          borderRadius={"6px"}
+          marginTop={1}
+        >
+          <Add size={16} />
+          <Span>Add Task</Span>
+        </Button>
+      </AddTaskButton>
     </VStack>
   );
 };
@@ -45,9 +67,11 @@ export const TodoCardsHeading = ({ count }: { count: number }) => {
           >{`(${count})`}</Span>
         </Box>
       </HStack>
-      <IconButton size="xs" bg="white" color="gray.800" borderRadius={"6px"}>
-        <Add size={16} />
-      </IconButton>
+      <AddTaskButton status={TaskStatus.TODO}>
+        <IconButton size="xs" bg="white" color="gray.800" borderRadius={"6px"}>
+          <Add size={16} />
+        </IconButton>
+      </AddTaskButton>
     </HStack>
   );
 };
