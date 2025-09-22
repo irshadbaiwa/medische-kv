@@ -1,3 +1,7 @@
+## Deployed Link
+
+[https://medische-kv.vercel.app/](https://medische-kv.vercel.app/)
+
 ## Setup Instructions
 
 First, clone this repo
@@ -18,21 +22,21 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Features Added
 
-[x] - Layout implemented
-[x] - Chakra UI components
-[x] - Display todos (Table)
-[x] - Display todos (Cards)
-[x] - Show empty state
-[x] - Show loading state
-[x] - Add new todo
-[x] - Mark todo as completed
-[x] - Mark todo in-progress
-[x] - Delete todo
-[x] - localStorage persistence
-[x] - Immediate table updates
-[x] - Search functionality (table and cards)
-[x] - Filter functionality (table)
-[x] - Mobile responsiveness
+- [x] Layout implemented
+- [x] Chakra UI components
+- [x] Display todos (Table)
+- [x] Display todos (Cards)
+- [x] Show empty state
+- [x] Show loading state
+- [x] Add new todo
+- [x] Mark todo as completed
+- [x] Mark todo in-progress
+- [x] Delete todo
+- [x] localStorage persistence
+- [x] Immediate table updates
+- [x] Search functionality (table and cards)
+- [x] Filter functionality (table)
+- [x] Mobile responsiveness
 
 ## Info
 
