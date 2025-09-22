@@ -1,6 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { SideNav } from "./side-nav";
 import { Header } from "./header";
+import { Info } from "./info";
 
 export const GlobalLayout = ({
   children,
@@ -48,6 +49,7 @@ export const GlobalLayout = ({
           padding={{ base: 4, lg: 6, "2xl": 8 }}
         >
           {children}
+          <Info />
         </Box>
       </Box>
     </Flex>
